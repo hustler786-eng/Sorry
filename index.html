@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You...</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Library for High Level Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Beautiful Fonts (Poppins for text, Dancing Script for headings) -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a; /* Dark sleek background */
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, .cursive-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Cute Floating Elements */
+        .floating-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+        .cute-emoji {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.4;
+            animation: floatUp infinite linear;
+            filter: drop-shadow(0 0 10px rgba(255,105,180,0.5));
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* Hero Glass Card */
+        .hero-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        /* Glassmorphism for story cards */
+        .story-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .story-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(236, 72, 153, 0.6);
+        }
+
+        /* Glowing Custom Image Frame */
+        .img-frame {
+            border-radius: 20px;
+            padding: 10px;
+            background: linear-gradient(145deg, rgba(236,72,153,0.3), rgba(168,85,247,0.3));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        .img-frame img {
+            border-radius: 14px;
+            transition: transform 0.7s ease;
+        }
+        .img-frame:hover img {
+            transform: scale(1.08) rotate(1deg);
+        }
+
+        /* Interactive Envelopes */
+        .envelope {
+            background: linear-gradient(135deg, #ec4899, #a855f7);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .envelope:hover {
+            transform: translateY(-15px) rotate(-3deg) scale(1.05);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.5);
+        }
+
+        /* Modal */
+        #modal { transition: opacity 0.3s ease; backdrop-filter: blur(10px); }
+        .modal-content {
+            background: #1e293b;
+            border: 2px solid #ec4899;
+            box-shadow: 0 0 50px rgba(236, 72, 153, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Cute Floating Elements Container -->
+    <div class="floating-container" id="floating-container"></div>
+
+    <!-- ================= BEAUTIFUL HERO SECTION ================= -->
+    <header class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+        <div class="hero-card rounded-[3rem] p-10 md:p-16 max-w-3xl w-full text-center" data-aos="zoom-in" data-aos-duration="2000">
+            <h1 class="text-6xl md:text-8xl bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 mb-4 drop-shadow-lg leading-tight">
+                Just For You...
+            </h1>
+            <p class="text-xl md:text-2xl text-pink-200 font-light mt-4 tracking-wide">
+                Because a simple Sorry isn't enough to win you over, so here’s something as special as you. 💖
+            </p>
+        </div>
+        
+        <div class="absolute bottom-12 animate-bounce cursor-pointer text-pink-400 drop-shadow-[0_0_15px_rgba(236,72,153,0.8)]" data-aos="fade-up" data-aos-delay="1000">
+            <p class="mb-2 text-sm font-light text-center">Scroll Down</p>
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-6 pb-24 overflow-hidden mt-10">
+        
+        <!-- ================= PICTURE 1: HER SMILE ================= -->
+        <div class="flex flex-col md:flex-row items-center gap-10 mb-32">
+            <div class="w-full md:w-1/2 img-frame shadow-2xl" data-aos="fade-right" data-aos-duration="1200">
+                <!-- IMAGE 1: Smile Picture -->
+                <img src="images/image_4.jpeg" alt="Her Smile" class="w-full h-auto object-cover aspect-[4/5]">
+            </div>
+            <div class="w-full md:w-1/2 story-card p-8 md:p-12 rounded-[2rem]" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                <h2 class="text-5xl text-pink-400 mb-6 drop-shadow-md">That Beautiful Smile</h2>
+                <p class="text-gray-300 leading-relaxed text-lg md:text-xl tracking-wide font-light">
+                    Ammmm apki smile ko describe krny k liye na aik paragraph kaafi km hoga u also know mujhy apki smile kitni pasand ha humesha hasti rha kro bs yhi buuhut mery liye ...💖
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PICTURE 2: EYES/BEAUTY ================= -->
+        <div class="flex flex-col md:flex-row-reverse items-center gap-10 mb-32">
+            <div class="w-full md:w-1/2 img-frame shadow-2xl" data-aos="fade-left" data-aos-duration="1200">
+                <!-- IMAGE 2 -->
+                <img src="images/img_5.jpeg" alt="Her Eyes" class="w-full h-auto object-cover aspect-[4/5]">
+            </div>
+            <div class="w-full md:w-1/2 story-card p-8 md:p-12 rounded-[2rem]" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
+                <h2 class="text-5xl text-purple-400 mb-6 drop-shadow-md">Those Deep Eyes</h2>
+                <p class="text-gray-300 leading-relaxed text-lg md:text-xl tracking-wide font-light">
+                    Meny kbhi apko nh btya ye isiliye ye meny yha add kiya u don't know ka mujhy apki Ankhein kitni zyada pasand hain agar mujhy kisi ko dekhna sb sy zyada pasand ha na to wo apki ye ankhein hain pta nh q me shi sy dekh nh pata in me because mera phr dil nh krta hatany ko or chorh kr jany ko 🌸
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PICTURE 3: ELEGANCE ================= -->
+        <div class="flex flex-col md:flex-row items-center gap-10 mb-32">
+            <div class="w-full md:w-1/2 img-frame shadow-2xl" data-aos="fade-right" data-aos-duration="1200">
+                <!-- IMAGE 3 -->
+                <img src="images/img_1.jpeg" alt="Her Elegance" class="w-full h-auto object-cover aspect-[4/5]">
+            </div>
+            <div class="w-full md:w-1/2 story-card p-8 md:p-12 rounded-[2rem]" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                <h2 class="text-5xl text-cyan-400 mb-6 drop-shadow-md">Elegance Personified</h2>
+                <p class="text-gray-300 leading-relaxed text-lg md:text-xl tracking-wide font-light">
+                    Ammm apki sb sy different personality ha ye me sb ka saamny bhi keh skta hoo like poori uni me mera kisi ko dekhnay ka dil nh krta lekin aik ap ho or apki personality batain ghussa sb kuch mujhy acha lgta intahi rude insaan hoo me na lekin yha intahi soft hokr reh jaata becz ye apka khiyaal or pyar ha i love you and your personality Farwa ..🤍
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PICTURE 4: RANDOM/CUTE ================= -->
+        <div class="flex flex-col md:flex-row-reverse items-center gap-10 mb-32">
+            <div class="w-full md:w-1/2 img-frame shadow-2xl" data-aos="fade-left" data-aos-duration="1200">
+                <!-- IMAGE 4 -->
+                <img src="images/img_2.jpeg" alt="Her Cuteness" class="w-full h-auto object-cover aspect-[4/5]">
+            </div>
+            <div class="w-full md:w-1/2 story-card p-8 md:p-12 rounded-[2rem]" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
+                <h2 class="text-5xl text-pink-400 mb-6 drop-shadow-md">The Cutest Soul</h2>
+                <p class="text-gray-300 leading-relaxed text-lg md:text-xl tracking-wide font-light">
+                    Ahm Ahm cute to ap buhut ho like ye to ap bhi janti hogi is pr me kia hi khoo keh skty hain ap itni khubsurat lgti sirf mujhy nh mery dil ko bhi ka jiski koi hadd nh literally apki cuteness apka chehra apka wajood hi mery liye sb kuch ha or me jitna dekhoo na thak nh skta apko Farwa. 🌸
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= 6 SECRET LETTERS SECTION ================= -->
+        <div class="mt-40 text-center" data-aos="fade-up" data-aos-duration="1500">
+            <h2 class="text-6xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400 mb-6 drop-shadow-lg">Sorry Letters</h2>
+            <p class="text-pink-200 mb-16 text-lg">Just tap on a letter whenever you feel like it 💌</p>
+            
+            <!-- Grid of 6 Letters -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 max-w-4xl mx-auto px-4">
+                
+                <!-- Letter 1 -->
+                <div onclick="openLetter('Letter 1: ', 'Main nahi chahta meri wajah se ya kisi bhi wajah se ap udas ho. You deserve all the happiness in the world. Smile please! and forget na jo bhi kuch hoa ya aj hoa ha please na Farwa maan jao ')" 
+                     class="envelope h-32 md:h-40 rounded-3xl flex items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition duration-300"></div>
+                    <span class="text-white font-semibold z-10 text-center text-lg md:text-xl">Letter 1</span>
+                </div>
+
+                <!-- Letter 2 -->
+                <div onclick="openLetter('Letter 2: ', 'Dekho na me gym bhi nh gya aj na yhi beth kr bnata rha hoo haha jatta nh rha hoo bta rha hoo becz ye na smjh jao ka me aj bhi lait hogya hoo i know you love long texts so meny kha unique way me bnata hoo me sb sy alag becz me apky liye sb sy alag banna chahta ')" 
+                     class="envelope h-32 md:h-40 rounded-3xl flex items-center justify-center relative overflow-hidden group" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                    <div class="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition duration-300"></div>
+                    <span class="text-white font-semibold z-10 text-center text-lg md:text-xl">Letter 2</span>
+                </div>
+
+                <!-- Letter 3 -->
+                <div onclick="openLetter('Letter 3: ', 'Amm Farwa ap nh jaanti mera dil kitna udaas tha ap kia smjhti ho ka me just bolta hoo nh Farwa literaaly mujhy buhut zyada pyar ha like jiski hadd ka andaza na ap lga skti ho na me khud shi btaoo to mujhy har roz naye andaaz sy hi pyar ajata ha lekin apko zyada sunna ye sb ajeeb lgta me control krta hoo buhut khud pr lekin aj me ye zaroor khooga ka farwa literaaly i love you too much buhut buhut buhut zyaadaaaaaa....🤍🤍')" 
+                     class="envelope h-32 md:h-40 rounded-3xl flex items-center justify-center relative overflow-hidden group" style="background: linear-gradient(135deg, #0ea5e9, #a855f7);">
+                    <div class="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition duration-300"></div>
+                    <span class="text-white font-semibold z-10 text-center text-lg md:text-xl">Letter 3</span>
+                </div>
+
+                <!-- Letter 4 -->
+                <div onclick="openLetter('Letter 4: ', 'Mujhy kia bura lga tha Amm kuch bhi nh ga tha ap mujhy jo chaho keh skti or jo chaho mery saath kr skti mujhy wo bura just lamhy k liye lgta ha me ap sy naraz reh nh skta bs kia kroo mujhy ghussa zyada ata ha lekin mujhy neend shi nh ati jb me ghussa kroo ap pr ya rude hoo Farwa please maan jao na nh manogi na to meri saari ye efforts zaaya jygi pleaaaaaaase ........🤍')" 
+                     class="envelope h-32 md:h-40 rounded-3xl flex items-center justify-center relative overflow-hidden group" style="background: linear-gradient(135deg, #f43f5e, #8b5cf6);">
+                    <div class="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition duration-300"></div>
+                    <span class="text-white font-semibold z-10 text-center text-lg md:text-xl">Letter 4</span>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ================= MODAL / POPUP (Popup for Letters) ================= -->
+    <div id="modal" class="fixed inset-0 bg-slate-900/90 z-50 hidden flex items-center justify-center p-6 opacity-0">
+        <div class="modal-content max-w-lg w-full p-8 md:p-12 rounded-[2rem] relative transform transition-transform duration-500 scale-95" id="modal-box">
+            <button onclick="closeLetter()" class="absolute top-6 right-6 text-gray-400 hover:text-pink-400 transition transform hover:rotate-90">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 id="modalTitle" class="text-4xl cursive-font text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-6 mt-2"></h3>
+            <p id="modalText" class="text-gray-200 text-lg md:text-xl leading-relaxed whitespace-pre-line font-light"></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Initialize High-Level Scroll Animations
+        AOS.init({ 
+            once: false, 
+            mirror: true,
+            offset: 120, // Wait a bit before animating
+            duration: 1000
+        });
+
+        // 2. Generate Cute Floating Emojis (Hearts, Stars, Flowers)
+        const floatingContainer = document.getElementById('floating-container');
+        const emojis = ['💖', '✨', '🌸', '🦋', '🤍', '💫']; 
+        
+        for(let i=0; i<35; i++) {
+            let el = document.createElement('div');
+            el.className = 'cute-emoji';
+            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Randomize position, size, and animation timing
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 10 + 8) + 's';
+            el.style.animationDelay = (Math.random() * 5) + 's';
+            
+            floatingContainer.appendChild(el);
+        }
+
+        // 3. Letters Modal Logic
+        const modal = document.getElementById('modal');
+        const modalBox = document.getElementById('modal-box');
+        
+        function openLetter(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = text;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+        
+        function closeLetter() {
+            modal.style.opacity = '0';
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+    </script>
+</body>
+</html>
